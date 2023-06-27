@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Essay Writing Service</title>
+    <style>
+        body {
+            background-color: #00ff00; /* Green background */
+            font-family: Arial, sans-serif;
+        }
+
+        #header {
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        #container {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px auto;
+            max-width: 800px;
+        }
+
+        #form-container {
+            width: 60%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #form-container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #form-container input,
+        #form-container select {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        #totals-bar {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #continue-button {
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Let's help you ace your essay</h1>
+        <p>Random message goes here</p>
+    </div>
+
+    <div id="container">
+        <div id="form-container">
+            <h2>Place Your Order</h2>
+
+            <form action="https://formsubmit.co/bdmasinde@email.com" method="POST">
+                <div class="form-field" style="width: 50%;">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-field" style="width: 50%;">
+                    <label for="pages">Number of Pages:</label>
+                    <input type="number" id="pages" min="1" onchange="calculateWords()" required>
+                </div>
+
+                <div class="form-field" style="width: 50%;">
+                    <label for="words">Number of Words:</label>
+                    <input type="text" id="words" disabled>
+                </div>
+
+                <div class="form-field" style="width: 50%;">
+                    <label for="assignment-type">Assignment Type:</label>
+                    <select id="assignment-type" onchange="calculateWords()">
+                        <option value="essay">Essay</option>
+                        <option value="research-paper">Research Paper</option>
+                        <option value="report">Report</option>
+                        <!-- Add more options here -->
+                    </select>
+                </div>
+
+                <div class="form-field" style="width: 50%;">
+                    <label for="file">Attach File:</label>
+                    <input type="file" id="file">
+                </div>
+
+                <div class="form-field" style="width: 50%;">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" onchange="calculateTimeRemaining()">
+                </div>
+
+                <div class="form-field" style="width: 50%;">
+                    <label for="time-remaining">Time Remaining:</label>
+                    <input type="text" id="time-remaining" disabled>
+                </div>
+
+                <div id="totals-bar">
+                    <span>Total:</span>
+                    <span id="total-amount">$0</span>
+                </div>
+
+                <button id="continue-button">Continue</button>
+            </form>
+        </div>
+
+        <div id="sidebar" style="width: 40%;">
+            <h2>Random Text</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec ligula mi. Aliquam varius elit eu lorem fringilla, id vestibulum tortor ultrices. Nam tincidunt varius eros, vitae commodo enim congue ut. Etiam cursus auctor enim in vestibulum. In tincidunt eleifend sapien at placerat. Vestibulum eu erat semper, vehicula odio nec, posuere purus. Curabitur at pulvinar velit. Nunc sit amet lacinia libero. Etiam nec tincidunt erat, a efficitur neque. Nulla dictum risus eget sem fringilla, et luctus quam rhoncus. Praesent facilisis ipsum eget posuere elementum. Proin id fringilla ex. Morbi faucibus, lorem a euismod rutrum, arcu sem rhoncus sapien, in pharetra diam quam non risus.</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateWords() {
+            const assignmentType = document.getElementById('assignment-type').value;
+            const pages = document.getElementById('pages').value;
+            let words = 275 * pages;
+            let price = 10 * pages;
+
+            if (assignmentType === 'presentation') {
+                words = 3 * pages;
+                price = 3 * pages;
+            }
+
+            document.getElementById('words').value = words;
+            document.getElementById('total-amount').textContent = '$' + price;
+        }
+
+        function calculateTimeRemaining() {
+            const deadline = new Date(document.getElementById('date').value);
+            const now = new Date();
+
+            const timeDiff = Math.abs(deadline - now);
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById('time-remaining').value = `${days} days ${hours} hrs ${minutes} mins`;
+        }
+
+        setInterval(calculateTimeRemaining, 1000); // Update time remaining every second
+    </script>
+</body>
+</html>
